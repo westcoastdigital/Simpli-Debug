@@ -1,0 +1,201 @@
+.simpli-debug-wrap {
+    max-width: 1400px;
+    margin: 20px 0;
+}
+
+/* Notice Boxes */
+.simpli-debug-notice {
+    padding: 20px;
+    margin: 20px 0;
+    background: #fff;
+    border-left: 4px solid #ffb900;
+}
+
+.simpli-debug-notice h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+/* Code Block */
+.simpli-debug-code-block {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.simpli-debug-code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.simpli-debug-code-header span {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #50575e;
+}
+
+.simpli-debug-copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.simpli-debug-copy-btn.copied {
+    background: #00a32a;
+    color: #fff;
+    border-color: #00a32a;
+}
+
+.simpli-debug-code-block pre {
+    margin: 0;
+    padding: 20px;
+    background: #f6f7f7;
+    overflow-x: auto;
+}
+
+.simpli-debug-code-block code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #1e1e1e;
+}
+
+/* Success State */
+.simpli-debug-success {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.simpli-debug-success-icon {
+    margin-bottom: 20px;
+}
+
+.simpli-debug-success-icon .dashicons {
+    width: 80px;
+    height: 80px;
+    font-size: 80px;
+    color: #00a32a;
+}
+
+.simpli-debug-success h2 {
+    color: #00a32a;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.simpli-debug-success p {
+    color: #50575e;
+    font-size: 15px;
+}
+
+.simpli-debug-success .description {
+    color: #787c82;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+/* Debug Log Display */
+.simpli-debug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.simpli-debug-info p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.simpli-debug-size {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #f0f0f1;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.simpli-debug-info code {
+    background: #f6f7f7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.simpli-debug-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.simpli-debug-actions .button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.simpli-debug-actions .dashicons {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
+
+.simpli-debug-log-container {
+    background: #1e1e1e;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.simpli-debug-log {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #d4d4d4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Loading State */
+.simpli-debug-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .simpli-debug-header {
+        flex-direction: column;
+    }
+    
+    .simpli-debug-actions {
+        width: 100%;
+    }
+    
+    .simpli-debug-actions .button {
+        flex: 1;
+        justify-content: center;
+    }
+}
