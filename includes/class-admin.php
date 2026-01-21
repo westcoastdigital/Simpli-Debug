@@ -268,13 +268,49 @@ class Simpli_Debug_Admin {
         $result = simpli_debug_enable_alternative();
         
         if ($result) {
-            wp_send_json_success(array(
-                'message' => __('Alternative debug logging enabled successfully', 'simpli-debug')
-            ));
+            $last_error = get_option('simpli_debug_last_error', '');
+            
+            if ($last_error === 'ini_set_failed') {
+                wp_send_json_success(array(
+                    'message' => __('Alternative logging enabled, but ini_set() may be disabled on your server. If errors don\'t appear in the log, please use the manual wp-config.php method instead.', 'simpli-debug')
+                ));
+            } else {
+                wp_send_json_success(array(
+                    'message' => __('Alternative debug logging enabled successfully. A test notice has been logged.', 'simpli-debug')
+                ));
+            }
         } else {
-            wp_send_json_error(array(
-                'message' => __('Failed to enable alternative debug logging', 'simpli-debug')
-            ));
+            $last_error = get_option('simpli_debug_last_error', '');
+            $log_path = WP_CONTENT_DIR . '/simpli-debug.log';
+            
+            switch ($last_error) {
+                case 'wp_content_not_writable':
+                    $message = sprintf(
+                        __('The wp-content directory (%s) is not writable. Please check file permissions.', 'simpli-debug'),
+                        WP_CONTENT_DIR
+                    );
+                    break;
+                    
+                case 'cannot_create_file':
+                    $message = sprintf(
+                        __('Could not create log file at %s. Please check file permissions or try creating it manually.', 'simpli-debug'),
+                        $log_path
+                    );
+                    break;
+                    
+                case 'file_not_writable':
+                    $message = sprintf(
+                        __('Log file exists but is not writable: %s. Please check file permissions.', 'simpli-debug'),
+                        $log_path
+                    );
+                    break;
+                    
+                default:
+                    $message = __('Failed to enable alternative debug logging. Please try the manual wp-config.php method instead.', 'simpli-debug');
+                    break;
+            }
+            
+            wp_send_json_error(array('message' => $message));
         }
     }
 

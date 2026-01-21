@@ -6,6 +6,9 @@ A comprehensive WordPress plugin for debugging and activity logging with recover
 
 ### 🔍 Debug Log Viewer
 - View debug.log directly from WordPress admin
+- **Two ways to enable debug logging:**
+  - Manual wp-config.php configuration (recommended)
+  - One-click alternative logging (no file editing required)
 - One-click clear and download
 - Real-time log size monitoring
 - Smart detection of debug logging status
@@ -47,12 +50,43 @@ For emergency access when your site is broken:
 
 **Access:** Tools > Debug Log
 
-#### If Debug Logging is Disabled:
-- The plugin will show you exactly what to add to `wp-config.php`
-- Click "Copy Code" to copy the configuration
-- Paste it in your `wp-config.php` file before the line "That's all, stop editing!"
+#### Enabling Debug Logging
 
-#### If Debug Logging is Enabled:
+The plugin offers two methods to enable debug logging:
+
+**Option 1: Manual Configuration (Recommended)**
+- Most comprehensive debugging
+- Captures all WordPress-specific errors and warnings
+- Best for serious development and troubleshooting
+- The plugin provides ready-to-copy code for your `wp-config.php`
+- Click "Copy Code" and paste before the "That's all, stop editing!" line
+
+**Option 2: Quick Enable (Alternative Method)**
+- One-click activation - no file editing required
+- Creates a separate log file at `/wp-content/simpli-debug.log`
+- Uses PHP's `ini_set()` for error logging
+- Great for quick checks and basic debugging
+- May not catch all WordPress-specific errors
+- Can be toggled on/off from the admin interface
+
+**Which method should you use?**
+- **For development & serious debugging:** Use Option 1 (wp-config.php)
+- **For quick checks & basic logging:** Use Option 2 (Quick Enable)
+- **For production sites:** Use Option 1 or neither (debugging should be off in production)
+
+#### If Debug Logging is Disabled:
+- The plugin displays both options clearly
+- Option 1 shows the exact code to add to `wp-config.php`
+- Option 2 provides a "Enable Alternative Debug Logging" button
+- Choose the method that works best for your needs
+
+#### If Alternative Logging is Enabled:
+- Shows the current log file location
+- Displays file size and contents
+- Provides a "Disable Alternative Logging" button
+- Suggests upgrading to manual method for comprehensive debugging
+
+#### If Standard Logging is Enabled:
 - **View Log**: See all errors, warnings, and notices
 - **Download**: Save a timestamped copy of the log file
 - **Clear**: Remove all entries from the log (with confirmation)
@@ -128,6 +162,18 @@ When your site has a fatal error from a plugin:
 - Must have `simpli-debug-recovery.php` in `/wp-content/mu-plugins/`
 - Must be logged in as an administrator
 
+## Debug Logging Methods Comparison
+
+| Feature | Manual (wp-config.php) | Alternative (Quick Enable) |
+|---------|------------------------|---------------------------|
+| Setup | Requires file editing | One-click button |
+| Error Coverage | All WordPress errors | PHP errors only |
+| Best For | Development & serious debugging | Quick checks |
+| Reversible | Manual file edit required | One-click disable |
+| Log Location | `/wp-content/debug.log` | `/wp-content/simpli-debug.log` |
+| WordPress Integration | Full integration | Basic logging |
+| Recommended For | Production debugging, development | Testing, convenience |
+
 ## Database
 
 The plugin creates one custom table: `wp_simpli_activity_log`
@@ -168,6 +214,11 @@ CREATE TABLE wp_simpli_activity_log (
 - When you deactivate the plugin, the database table is automatically dropped
 - All activity log data is permanently deleted
 - Reactivating the plugin creates a fresh table
+
+**Alternative Logging Settings:**
+- Alternative logging settings are stored in wp_options
+- Toggling alternative logging on/off updates these settings
+- Settings persist until you change them or deactivate the plugin
 
 **Automatic Cleanup (Optional):**
 
@@ -242,6 +293,21 @@ Simpli_Debug_Database::create_table();
 Simpli_Debug_Database::clear_old_logs(90);
 ```
 
+### Alternative Logging Functions:
+```php
+// Enable alternative debug logging
+simpli_debug_enable_alternative();
+
+// Disable alternative debug logging
+simpli_debug_disable_alternative();
+
+// Check if alternative logging is enabled
+simpli_debug_is_alternative_enabled();
+
+// Get alternative log path
+simpli_debug_get_alternative_path();
+```
+
 ## Requirements
 
 - WordPress 5.0 or higher
@@ -262,8 +328,9 @@ For support, please visit: https://simpliweb.com.au/support
 - Added recovery mode support
 - Added "Clear All Entries" reset button
 - Added automatic table cleanup on deactivation
-- Enhanced debug log viewer
-- Improved UI/UX
+- **Added one-click alternative debug logging** (no wp-config.php editing required)
+- Enhanced debug log viewer with two enable options
+- Improved UI/UX with inline notices
 - Fixed duplicate logging on trash/restore actions
 
 ### Version 1.0.0
@@ -275,20 +342,35 @@ For support, please visit: https://simpliweb.com.au/support
 
 ### Data Persistence
 - **Activity logs are deleted when the plugin is deactivated**
+- **Alternative logging settings are removed when the plugin is deactivated**
 - If you need to preserve your activity history, export to CSV before deactivating
 - The debug log file itself is NOT affected by plugin deactivation
+
+### Debug Logging Methods
+- **Manual method (wp-config.php)** is recommended for comprehensive debugging
+- **Alternative method (Quick Enable)** is convenient but may miss some WordPress-specific errors
+- You can switch between methods at any time
+- Both methods can coexist, but only one should be active at a time
 
 ### Security
 - All AJAX actions are protected with nonces
 - User capability checks on all admin functions
 - SQL injection protection via prepared statements
 - XSS prevention on all outputs
+- Alternative logging requires admin privileges to enable/disable
 
 ### Performance
 - Database table is optimized with proper indexes
 - AJAX loading prevents page blocking
 - Pagination limits data transfer
 - Efficient query building for filters
+- Alternative logging has minimal performance impact
+
+### Server Compatibility
+- Alternative logging uses PHP's `ini_set()` function
+- Some servers may have `ini_set()` disabled for security
+- If alternative logging doesn't work, use the manual wp-config.php method
+- Check with your hosting provider if you have issues
 
 ## License
 
