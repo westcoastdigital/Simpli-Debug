@@ -18,6 +18,11 @@ function simpli_debug_is_enabled() {
  * Get debug.log file path
  */
 function simpli_debug_get_log_path() {
+    // Check if alternative logging is enabled
+    if (simpli_debug_is_alternative_enabled()) {
+        return simpli_debug_get_alternative_path();
+    }
+    
     if (defined('WP_DEBUG_LOG') && is_string(WP_DEBUG_LOG)) {
         return WP_DEBUG_LOG;
     }
@@ -70,3 +75,58 @@ function simpli_debug_format_size($bytes) {
     
     return round($bytes, 2) . ' ' . $units[$pow];
 }
+
+/**
+ * Check if alternative debug logging is enabled
+ */
+function simpli_debug_is_alternative_enabled() {
+    return get_option('simpli_debug_alternative_enabled', false);
+}
+
+/**
+ * Enable alternative debug logging
+ */
+function simpli_debug_enable_alternative() {
+    $log_path = WP_CONTENT_DIR . '/simpli-debug.log';
+    
+    // Set PHP ini settings
+    @ini_set('log_errors', 1);
+    @ini_set('error_log', $log_path);
+    
+    // Save option
+    update_option('simpli_debug_alternative_enabled', true);
+    update_option('simpli_debug_alternative_path', $log_path);
+    
+    return true;
+}
+
+/**
+ * Disable alternative debug logging
+ */
+function simpli_debug_disable_alternative() {
+    // Remove options
+    delete_option('simpli_debug_alternative_enabled');
+    delete_option('simpli_debug_alternative_path');
+    
+    return true;
+}
+
+/**
+ * Get alternative log path
+ */
+function simpli_debug_get_alternative_path() {
+    return get_option('simpli_debug_alternative_path', WP_CONTENT_DIR . '/simpli-debug.log');
+}
+
+/**
+ * Initialize alternative logging if enabled
+ */
+function simpli_debug_init_alternative() {
+    if (simpli_debug_is_alternative_enabled()) {
+        $log_path = simpli_debug_get_alternative_path();
+        @ini_set('log_errors', 1);
+        @ini_set('error_log', $log_path);
+        @ini_set('display_errors', 0);
+    }
+}
+add_action('init', 'simpli_debug_init_alternative', 1);

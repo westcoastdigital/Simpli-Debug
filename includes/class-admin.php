@@ -21,9 +21,12 @@ class Simpli_Debug_Admin {
         add_action('wp_ajax_simpli_debug_download_log', array(__CLASS__, 'ajax_download_log'));
         add_action('wp_ajax_simpli_get_activity_logs', array(__CLASS__, 'ajax_get_activity_logs'));
         add_action('wp_ajax_simpli_export_activity_logs', array(__CLASS__, 'ajax_export_activity_logs'));
-        add_action('wp_ajax_simpli_reset_activity_logs', array(__CLASS__, 'ajax_reset_activity_logs')); // NEW
+        add_action('wp_ajax_simpli_reset_activity_logs', array(__CLASS__, 'ajax_reset_activity_logs'));
+        add_action('wp_ajax_simpli_enable_alternative_logging', array(__CLASS__, 'ajax_enable_alternative_logging')); // NEW
+        add_action('wp_ajax_simpli_disable_alternative_logging', array(__CLASS__, 'ajax_disable_alternative_logging')); // NEW
     }
-        /**
+
+    /**
      * Add menu pages
      */
     public static function add_menu_pages() {
@@ -249,6 +252,52 @@ class Simpli_Debug_Admin {
             wp_send_json_success(array('message' => __('Activity log reset successfully', 'simpli-debug')));
         } else {
             wp_send_json_error(array('message' => __('Failed to reset activity log', 'simpli-debug')));
+        }
+    }
+
+    /**
+     * AJAX: Enable alternative debug logging
+     */
+    public static function ajax_enable_alternative_logging() {
+        check_ajax_referer('simpli_debug_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'simpli-debug')));
+        }
+        
+        $result = simpli_debug_enable_alternative();
+        
+        if ($result) {
+            wp_send_json_success(array(
+                'message' => __('Alternative debug logging enabled successfully', 'simpli-debug')
+            ));
+        } else {
+            wp_send_json_error(array(
+                'message' => __('Failed to enable alternative debug logging', 'simpli-debug')
+            ));
+        }
+    }
+
+    /**
+     * AJAX: Disable alternative debug logging
+     */
+    public static function ajax_disable_alternative_logging() {
+        check_ajax_referer('simpli_debug_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'simpli-debug')));
+        }
+        
+        $result = simpli_debug_disable_alternative();
+        
+        if ($result) {
+            wp_send_json_success(array(
+                'message' => __('Alternative debug logging disabled successfully', 'simpli-debug')
+            ));
+        } else {
+            wp_send_json_error(array(
+                'message' => __('Failed to disable alternative debug logging', 'simpli-debug')
+            ));
         }
     }
 }
