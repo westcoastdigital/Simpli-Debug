@@ -566,4 +566,38 @@
       grid-template-columns: 1fr;
     }
   }
+
+
 }
+
+  /* Notice Boxes */
+  .simpli-debug-notice {
+    padding: 20px;
+    margin: 20px 0;
+    background: #fff;
+    border-left: 4px solid #ffb900;
+  }
+
+  .simpli-debug-notice h2 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  /* Inline notices within options - use different class to avoid conflicts */
+  .simpli-inline-notice {
+    padding: 12px 15px;
+    margin: 15px 0;
+    background: #f0f6fc;
+    border-left: 4px solid #2271b1;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .simpli-inline-notice p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .simpli-inline-notice strong {
+    color: #2271b1;
+  }
