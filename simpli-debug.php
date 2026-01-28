@@ -27,6 +27,26 @@ require_once SIMPLI_DEBUG_PATH . 'includes/class-logger.php';
 require_once SIMPLI_DEBUG_PATH . 'includes/class-admin.php';
 require_once SIMPLI_DEBUG_PATH . 'includes/debug-log-functions.php';
 
+// ============================================
+// GitHub Auto-Updater Integration
+// ============================================
+require_once SB_ACF_TOOLTIPS_PLUGIN_DIR . 'github-updater.php';
+
+if (class_exists('SimpliWeb_GitHub_Updater')) {
+    $updater = new SimpliWeb_GitHub_Updater(__FILE__);
+    $updater->set_username('westcoastdigital');
+    $updater->set_repository('Simpli-ACF-Tooltips');
+    
+    // For private repos, uncomment and add your token:
+    // if (defined('GITHUB_ACCESS_TOKEN')) {
+    //     $updater->authorize(GITHUB_ACCESS_TOKEN);
+    // }
+    
+    $updater->initialize();
+}
+// ============================================
+
+
 // Initialize database on plugin activation
 register_activation_hook(__FILE__, array('Simpli_Debug_Database', 'create_table'));
 
