@@ -35,7 +35,7 @@ require_once SB_ACF_TOOLTIPS_PLUGIN_DIR . 'github-updater.php';
 if (class_exists('SimpliWeb_GitHub_Updater')) {
     $updater = new SimpliWeb_GitHub_Updater(__FILE__);
     $updater->set_username('westcoastdigital');
-    $updater->set_repository('Simpli-ACF-Tooltips');
+    $updater->set_repository('Simpli-Debug');
     
     // For private repos, uncomment and add your token:
     // if (defined('GITHUB_ACCESS_TOKEN')) {
