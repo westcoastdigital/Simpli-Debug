@@ -30,7 +30,7 @@ require_once SIMPLI_DEBUG_PATH . 'includes/debug-log-functions.php';
 // ============================================
 // GitHub Auto-Updater Integration
 // ============================================
-require_once SB_ACF_TOOLTIPS_PLUGIN_DIR . 'github-updater.php';
+require_once SIMPLI_DEBUG_PATH . 'github-updater.php';
 
 if (class_exists('SimpliWeb_GitHub_Updater')) {
     $updater = new SimpliWeb_GitHub_Updater(__FILE__);
