@@ -320,6 +320,9 @@ For support, please visit: https://simpliweb.com.au/support
 
 ## Changelog
 
+### Version 2.1.0
+- Added toggle to show/hide PHP Notices
+
 ### Version 2.0.0
 - Added activity logging system
 - Added custom database table for logs

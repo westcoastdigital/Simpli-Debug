@@ -3,7 +3,7 @@
 Plugin Name:  Simpli Debug
 Plugin URI:   https://simpliweb.com.au
 Description:  View and manage the debug.log and track site activity
-Version:      2.0.0
+Version:      2.1.0
 Author:       SimpliWeb
 Author URI:   https://simpliweb.com.au
 License:      GPL v2 or later
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('SIMPLI_DEBUG_VERSION', '2.0.0');
+define('SIMPLI_DEBUG_VERSION', '2.1.0');
 define('SIMPLI_DEBUG_PATH', plugin_dir_path(__FILE__));
 define('SIMPLI_DEBUG_URL', plugin_dir_url(__FILE__));
 
