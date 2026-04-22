@@ -92,6 +92,10 @@
   color: #00a32a;
 }
 
+.simpli-debug-success-icon .dashicons-info {
+  color: #2271b1;
+}
+
 .simpli-debug-success h2 {
   color: #00a32a;
   font-size: 24px;
@@ -154,6 +158,14 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.simpli-debug-success .simpli-debug-clear-btn,
+.simpli-debug-success .simpli-debug-toggle-notices-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 auto;
 }
 
 .simpli-debug-actions .dashicons {

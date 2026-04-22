@@ -72,6 +72,33 @@ jQuery(document).ready(function ($) {
     location.reload();
   });
 
+  // Toggle exclude PHP notices
+  $(".simpli-debug-toggle-notices-btn").on("click", function () {
+    var $btn = $(this);
+    $btn.prop("disabled", true);
+
+    $.ajax({
+      url: simpliDebug.ajax_url,
+      type: "POST",
+      data: {
+        action: "simpli_toggle_exclude_notices",
+        nonce: simpliDebug.nonce,
+      },
+      success: function (response) {
+        if (response.success) {
+          location.reload();
+        } else {
+          alert(response.data.message || "Failed to toggle notices filter");
+          $btn.prop("disabled", false);
+        }
+      },
+      error: function () {
+        alert("An error occurred");
+        $btn.prop("disabled", false);
+      },
+    });
+  });
+
   // Enable alternative logging
   $(".simpli-enable-alternative-logging").on("click", function () {
     if (

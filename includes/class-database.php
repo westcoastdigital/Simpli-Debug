@@ -290,6 +290,9 @@ class Simpli_Debug_Database {
         
         // Remove version option
         delete_option('simpli_debug_db_version');
+
+        // Remove the exclude option
+        delete_option('simpli_debug_exclude_notices');
     }
 
     /**
